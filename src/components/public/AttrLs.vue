@@ -2,7 +2,7 @@
   <div
     class="attr-box"
     :style="{ width: isShow ? '292px' : '16px' }"
-    v-if="curComponent.length > 0"
+    v-if="curComponent"
   >
     <div class="attr-center">
       <div class="attr-arrow">
@@ -15,20 +15,20 @@
       </div>
       <div class="attr-list">
         <div
-          v-for="(item, index) in curComponent"
+          v-for="(item, index) in model ? [curModule] : [curComponent]"
           :key="index"
         >
-          <template v-if="!isIgroup && item.styles">
+          <template v-if="!model && item.styles">
             <div v-if="Object.keys(item.styles).length > 0">
               <div
                 class="mt15 title"
                 style="display: flex;clear:both"
               >
-                <span style="width:68px;display: inline-block">属性名称</span>
+                <span style="width:68px;display: inline-block">名称</span>
                 <el-input
                   size="small"
                   @change="changeStyle()"
-                  v-model="item.label"
+                  v-model="item.attr.title"
                   placeholder="请输入属性名称"
                 ></el-input>
               </div>
@@ -78,48 +78,48 @@ export default {
       isShow: true,
       isIgroup: false,
       id: '',
-      curComponent: [{
-        styles: {},
-        attr: []
-      }],
+      // curComponent: [{
+      //   styles: {},
+      //   attr: []
+      // }],
       styleKeys: [],
       excludes: ['Picture', 'Group'], // 这些组件不显示内容
     }
   },
   computed: {
-    ...mapGetters(["componentLs", "moduleLs"]),
+    ...mapGetters(["componentLs", "moduleLs",'model','curModule','curComponent']),
   },
   created() {
-    this.$bus.$on("nid", (nid) => {
-      this.id = nid;
-      this.isIgroup = false;
-      let arr = [];
-      if (this.componentLs.length > 0) {
-        arr.push(this.componentLs.find((item) => item.id === this.id));
-      }
-      this.curComponent = arr
-    })
-    this.$bus.$on('pid', pid => {
-      this.id = pid
-      this.isIgroup = true
-      let arr = []
-      let item = {}
-      if (this.moduleLs) {
-        item = this.moduleLs.find(item => item.id === this.id)
-        if (item && item.type === 'i-group') {
-          arr.push(this.moduleLs.find(item => item.id === this.id))
-          this.curComponent = arr
-          console.log(11111111111111111)
-        } else if (item && item.type === 'i-custom') {
-          this.pid = pid
-          this.getCidData()
-        }
-      }
-    })
-    this.$bus.$on('cid', cid => {
-      this.cid = cid
-      this.getCidData()
-    })
+    // this.$bus.$on("nid", (nid) => {
+    //   this.id = nid;
+    //   this.isIgroup = false;
+    //   let arr = [];
+    //   if (this.componentLs.length > 0) {
+    //     arr.push(this.componentLs.find((item) => item.id === this.id));
+    //   }
+    //   console.log(arr)
+    //   this.curComponent = arr
+    // })
+    // this.$bus.$on('pid', pid => {
+    //   this.id = pid
+    //   this.isIgroup = true
+    //   let arr = []
+    //   let item = {}
+    //   if (this.moduleLs) {
+    //     item = this.moduleLs.find(item => item.id === this.id)
+    //     if (item && item.type === 'i-group') {
+    //       arr.push(this.moduleLs.find(item => item.id === this.id))
+    //       this.curComponent = arr
+    //     } else if (item && item.type === 'i-custom') {
+    //       this.pid = pid
+    //       this.getCidData()
+    //     }
+    //   }
+    // })
+    // this.$bus.$on('cid', cid => {
+    //   this.cid = cid
+    //   this.getCidData()
+    // })
   },
   methods: {
     changeStyle() {
@@ -128,18 +128,18 @@ export default {
         id: this.id,
       });
     },
-    getCidData() {
-      if (!this.cid || !this.pid) return
-      let pData = this.moduleLs ? this.moduleLs.find(item => item.id === this.pid) : {}
-      let cData = pData && pData.propValue ? pData.propValue.find(item => item.id === this.cid) : {}
-      let arr = []
-      if (cData) {
-        arr.push(cData)
-        this.id = this.cid
-        this.isIgroup = false
-        this.curComponent = arr
-      }
-    }
+    // getCidData() {
+    //   if (!this.cid || !this.pid) return
+    //   let pData = this.moduleLs ? this.moduleLs.find(item => item.id === this.pid) : {}
+    //   let cData = pData && pData.propValue ? pData.propValue.find(item => item.id === this.cid) : {}
+    //   let arr = []
+    //   if (cData) {
+    //     arr.push(cData)
+    //     this.id = this.cid
+    //     this.isIgroup = false
+    //     // this.curComponent = arr
+    //   }
+    // }
   }
 }
 </script>

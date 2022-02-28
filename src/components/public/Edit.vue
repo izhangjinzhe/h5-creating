@@ -34,15 +34,14 @@
     >
       <template v-for="(item, index) in componentLs">
         <!-- 组合组件 -->
-        <i-group
-          v-if="item.propValue[0].id"
-          :key="index"
-          :element="item"
-        >
-        </i-group>
+<!--        <i-group-->
+<!--          v-if="item.propValue[0].id"-->
+<!--          :key="index"-->
+<!--          :element="item"-->
+<!--        >-->
+<!--        </i-group>-->
         <!-- 普通组件 -->
         <resize
-          v-else
           :key="index"
           :element="item"
         >
@@ -84,6 +83,7 @@ export default {
     }
   },
   methods: {
+
     showMenu(e) {
       this.$store.commit('ctxMenu/showMenu', {
         top: e.offsetY,

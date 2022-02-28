@@ -1,6 +1,7 @@
 export default {
   namespaced: true,
   state: () => ({
+    model: '',
     menu: {
       top: 0,
       left: 0
@@ -12,6 +13,9 @@ export default {
         top,
         left
       }
+    },
+    setModel(state, payload){
+      state.model = payload
     }
   },
   actions: {

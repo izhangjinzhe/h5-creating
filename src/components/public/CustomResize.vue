@@ -1,6 +1,6 @@
 <template>
   <div
-    :class="{ resize: true, 'active-c': element.id == cid }"
+    :class="{ resize: true, 'active-c': element.id == curComponent.id }"
     :style="getResizeStyle(element.styles)"
     :ref="`box-${element.id}`"
     :data-id="element.id"
@@ -22,7 +22,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['moduleLs', 'componentLs', 'curModule']),
+    ...mapGetters(['moduleLs', 'componentLs', 'curModule', 'curComponent']),
     getResizeStyle: function () {
       return getResizeStyle
     }

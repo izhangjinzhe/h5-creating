@@ -17,14 +17,14 @@
         :class="{
           module: true,
           custom: item.type === 'i-custom',
-          active: item.id == pid,
+          active: item.id == curModule.id,
         }"
         @click="check($event, item.id)"
         :style="getSelectStyle(item.styles)"
         :key="i"
       >
         <ctx-menu
-          v-show="menu.top && item.id == pid"
+          v-show="menu.top && item.id == curModule.id"
           :menu="menu"
           :menuType="menuType"
         />
@@ -33,7 +33,7 @@
 
         <div class="mask" @click="check($event, item.id)"></div>
 
-        <div v-show="item.id === pid" class="tools">
+        <div v-show="item.id === curModule.id" class="tools">
           <span
             v-show="item.id"
             class="h"
@@ -61,7 +61,7 @@
         <el-radio-button :label="2">自定义</el-radio-button>
       </el-radio-group>
       <div style="margin: 30px 0 0">
-        <el-button v-show="addType === 1" v-for="item in customModules" :key="item.id" type="primary" plain @click="submit">{{ item.label }}</el-button>
+        <el-button v-show="addType === 1" v-for="item in customModules" :key="item.id" type="primary" plain @click="submit(item)">{{ item.label }}</el-button>
       </div>
       <div slot="footer" class="dialog-footer">
         <el-button @click="moduleShow = false">取 消</el-button>
@@ -94,7 +94,9 @@ export default {
     }
   },
   mounted() {
-    // this.$bus.$emit('pid', '1')
+    this.$bus.$emit('pid', (val)=>{
+      console.log(val)
+    })
   },
   methods: {
     changeHeight(e, index) {
@@ -139,10 +141,10 @@ export default {
     del(index) {
       this.$store.commit('moduleData/updModuleLs', { i: index })
     },
-
-    check(e, pid) {
-      this.pid = pid
-      this.$bus.$emit('pid', pid)
+    check(e, id) {
+      console.log(this.moduleLs.find(n=>n.id === id).type)
+      this.$store.commit('app/setModel', this.moduleLs.find(n=>n.id === id).type === 'i-group' ? 1 : 0)
+      this.$store.commit('moduleData/setCurModule', this.moduleLs.find(n=>n.id === id))
       this.$store.commit('ctxMenu/showMenu', {
         left: 0,
         top: 0,
@@ -159,33 +161,29 @@ export default {
       this.moduleShow = true
       this.index = i
     },
-    submit() {
+    submit(item) {
+      console.log(item)
       var t = String(new Date().getTime())
-      let component = {
-        type: 'i-group',
-        label: '组合',
-        attr: this.componentLs,
-        propValue:this.componentLs,
-        styles: {
-          height: 300
-        },
-        i: this.index + 1
-      }
-      console.log(component);
       if (this.addType === 1) {
-        this.$store.commit('moduleData/updModuleLs', { module: { ...component, id: t, }, i: this.index + 1 })
+        this.$store.commit('moduleData/updModuleLs', { module: {...item,id: t}, i: this.index + 1 })
+        this.$store.commit('moduleData/setCurModule', {...item,id: t})
+        this.$store.commit('app/setModel', 1)
       } else {
+        const module = {
+          type: 'i-custom',
+          id: t,
+          propValue: [],
+          attr:[],
+          styles: {
+            height: 200
+          }
+        }
         this.$store.commit('moduleData/updModuleLs', {
-          module: {
-            type: 'i-custom',
-            id: t,
-            propValue: [],
-            styles: {
-              height: 200
-            }
-          },
+          module,
           i: this.index + 1
         })
+        this.$store.commit('app/setModel', 0)
+        this.$store.commit('moduleData/setCurModule',module)
       }
       this.pid = t
       this.$bus.$emit('pid', t)

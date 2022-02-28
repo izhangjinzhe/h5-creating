@@ -54,7 +54,7 @@
     <template v-else>
       <template v-for="(item, index) in element.propValue">
         <custom-resize :key="index" :element="item">
-          <custom-shape :element="item">
+          <custom-shape :element="item" :parent="element">
             <component
               class="item"
               :is="item.type"
@@ -104,7 +104,7 @@ export default {
         top: e.offsetY,
       })
       // this.$bus.$emit('move', e)
-      // this.$bus.$emit('pid', this.pid) 
+      // this.$bus.$emit('pid', this.pid)
       // this.$store.commit('moduleData/setModulePosition',{x: e.offsetX,y: e.offsetY})
     },
     // a(e){
@@ -114,7 +114,7 @@ export default {
     //     left: e.clientX,
     //   })
     // this.$bus.$emit('move', e)
-    // this.$bus.$emit('pid', this.pid) 
+    // this.$bus.$emit('pid', this.pid)
     // this.$store.commit('moduleData/setModulePosition',{x: e.offsetX,y: e.offsetY})
     // }
   }

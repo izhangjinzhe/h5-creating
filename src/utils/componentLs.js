@@ -13,7 +13,7 @@
   fontSize: 14, 字体大小
   color: "#000", 字体颜色
   backgroundColor: "pink", 背景颜色
-  textAlign: "left", 
+  textAlign: "left",
   writingMode: true, 对齐方式：true 水平对齐 false 垂直对齐
   fontStyle: ["bold"], 字体样式 bold，italic倾斜，decoration下划线，through删除线
   lineHeight: 1, 行间距
@@ -21,7 +21,7 @@
   opacity: 0.7, 透明度
   transform: 0, 旋转
   borderStyle: 'solid', 边框样式
-  borderColor: '#000', 
+  borderColor: '#000',
   borderWidth: 10,
   borderShow: 'side', // all 全部，side单边
   borderShows: ['下'], //上下左右
@@ -47,7 +47,7 @@ export const baseLs = [
     type: 'i-text',
     label: '文字',
     propValue: '请输入文字',
-    id: 1938551947475,
+    id: 1,
     attr: {
       title: '文字名称',
       fontFamily: 'FangSong',
@@ -63,37 +63,37 @@ export const baseLs = [
       height: 200,
       left: 100,
       top: 100,
-      fontFamily: 'FangSong',
-      fontSize: 14,
-      color: "#000",
-      backgroundColor: "pink",
-      textAlign: "left",
-      writingMode: true,
-      fontStyle: ["bold"],
-      lineHeight: 1,
-      letterSpacing: 0,
-      opacity: 0.7,
-      transform: 0,
-      borderStyle: 'solid',
-      borderColor: '#000',
-      borderWidth: 0,
-      borderShow: 'all', // all 全部，side单边
-      borderShows: ['下'], //上下左右
-      borderRadius: 0,
-      radiusType: 'all', // all 全部圆角，side独立圆角
-      radiusTop: 0,
-      radiusRight: 20,
-      radiusLeft: 0,
-      radiusBottom: 10,
-      boxShadow: 'default', //default 外阴影， inset 内阴影
-      shadowC: '',
-      shadowX: 0,
-      shadowY: 0,
-      shadowW: 0,
-      insetShadowC: '',
-      insetShadowX: 0,
-      insetShadowY: 0,
-      insetShadowW: 0,
+      // fontFamily: 'FangSong',
+      // fontSize: 14,
+      // color: "#000",
+      // backgroundColor: "pink",
+      // textAlign: "left",
+      // writingMode: true,
+      // fontStyle: ["bold"],
+      // lineHeight: 1,
+      // letterSpacing: 0,
+      // opacity: 0.7,
+      // transform: 0,
+      // borderStyle: 'solid',
+      // borderColor: '#000',
+      // borderWidth: 0,
+      // borderShow: 'all', // all 全部，side单边
+      // borderShows: ['下'], //上下左右
+      // borderRadius: 0,
+      // radiusType: 'all', // all 全部圆角，side独立圆角
+      // radiusTop: 0,
+      // radiusRight: 20,
+      // radiusLeft: 0,
+      // radiusBottom: 10,
+      // boxShadow: 'default', //default 外阴影， inset 内阴影
+      // shadowC: '',
+      // shadowX: 0,
+      // shadowY: 0,
+      // shadowW: 0,
+      // insetShadowC: '',
+      // insetShadowX: 0,
+      // insetShadowY: 0,
+      // insetShadowW: 0,
       'z-index': 0
     }
   },

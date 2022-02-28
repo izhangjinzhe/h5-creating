@@ -127,7 +127,10 @@ export default {
       this.$prompt('','请输入组件名称').then(({value})=>{
         component.label = value
         this.$store.commit('moduleData/addCustomModules', component)
+        this.$store.commit("componentData/clearList");
         this.$store.commit("componentData/setCurComponent", { component: {} });
+        this.$store.commit("componentData/saveArea", 1);
+        this.$message.success('添加成功')
       })
     },
     preview() {

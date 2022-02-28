@@ -21,34 +21,37 @@ export default {
     }
   }),
   mutations: {
+    clearList(state){
+      state.list = []
+    },
     updComponent(state, { component, id }) {
-      console.log(component, '----', state.curCacheData)
-      let a = deepCopy(component)
-      let b = JSON.stringify(deepCopy(state.curCacheData[0] || []))
+      // console.log(component, '----', state.curCacheData)
+      let copyCpt = deepCopy(component)
+      // let b = JSON.stringify(deepCopy(state.curCacheData[0] || []))
 
-      if (!component.id) {
-        const newComponent = {
-          ...a,
-          del: true
-        }
-        state.curCacheData.unshift(newComponent)
-        state.list.splice(state.list.findIndex(item => item.id === id), 1, component)
-        state.list = state.list.filter(item => item.id)
-      } else if (id && state.list.findIndex(item => item.id === id) > -1) {
-        state.list.splice(state.list.findIndex(item => item.id === id), 1, component)
-        state.list = state.list.filter(item => item.id)
-        if (JSON.stringify(a) !== b && state.curCacheData.length > 0) {//数据改变时
-          if (state.count > 0) {
-            state.curCacheData.splice(0, state.count) // 当前步数不在最新时把之前后面的删除赋值成当前变化
-            state.curCacheData.unshift(a)
-            state.count = 0
-          } else {
-            state.curCacheData.unshift(a)
-          }
-        }
+      if (id) {
+        // const newComponent = {
+        //   ...a,
+        //   del: true
+        // }
+        // state.curCacheData.unshift(newComponent)
+        state.list.splice(state.list.findIndex(item => item.id === id), 1, copyCpt)
+        // state.list = state.list.filter(item => item.id)
+      // } else if (id && state.list.findIndex(item => item.id === id) > -1) {
+      //   state.list.splice(state.list.findIndex(item => item.id === id), 1, component)
+      //   state.list = state.list.filter(item => item.id)
+        // if (JSON.stringify(a) !== b && state.curCacheData.length > 0) {//数据改变时
+        //   if (state.count > 0) {
+        //     state.curCacheData.splice(0, state.count) // 当前步数不在最新时把之前后面的删除赋值成当前变化
+        //     state.curCacheData.unshift(a)
+        //     state.count = 0
+        //   } else {
+        //     state.curCacheData.unshift(a)
+        //   }
+        // }
       } else {
-        state.list.push(component)
-        state.curCacheData.unshift(a)
+        state.list.push(copyCpt)
+        // state.curCacheData.unshift(a)
       }
     },
     updata(state, count) {
@@ -73,9 +76,9 @@ export default {
       console.log(state.list, 'oo')
     },
     setCurComponent(state, { component }) {
-      if (state.editMode === "preview") {
-        return state.curComponent = {}
-      }
+      // if (state.editMode === "preview") {
+      //   return state.curComponent = {}
+      // }
       state.curComponent = { ...component }
     },
     setEditMode(state, mode) {
@@ -102,7 +105,7 @@ export default {
     //   console.log(payload);
 
     //   state.list =  state.list.map(item => {
-    //     if (item.id === payload.id) { 
+    //     if (item.id === payload.id) {
     //       console.log('1');
 
     //       return {

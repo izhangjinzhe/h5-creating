@@ -13,7 +13,7 @@
 import { mapGetters } from 'vuex'
 import { getSelectStyle } from '../../utils/getStyles'
 export default {
-  props: ['element'],
+  props: ['element','parent'],
   computed: {
     ...mapGetters(['moduleLs']),
     getSelectStyle() {
@@ -38,8 +38,11 @@ export default {
   },
   methods: {
     select(ev) {
-      this.$bus.$emit('cid', this.element.id)
-      this.$bus.$emit('pid', this.pid)
+      console.log(ev)
+      // this.$bus.$emit('cid', this.element.id)
+      // this.$bus.$emit('pid', this.pid)
+      console.log(this.element,this.parent)
+      this.$store.commit('componentData/setCurComponent',this.element)
       ev.path.forEach(element => {
         if (element.className === 'resize') {
           this.oDiv = element
@@ -70,6 +73,7 @@ export default {
           }
         }
         this.$store.commit('moduleData/updModuleLs', { module: newComponent, pid: this.pid, cid: this.element.id })
+        this.$store.commit('componentData/setCurComponent',{component: this.newComponent.id ? this.newComponent : this.element})
         document.removeEventListener('mousemove', move)
         document.removeEventListener('mouseup', up)
       }

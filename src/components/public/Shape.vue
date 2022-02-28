@@ -37,7 +37,9 @@ export default {
   },
   methods: {
     select(ev) {
-      this.$bus.$emit('nid', this.element.id)
+      // this.$bus.$emit('nid', this.element.id)
+      console.log(ev)
+
       ev.path.forEach(element => {
         if (element.className == 'resize') {
           this.oDiv = element
@@ -57,6 +59,7 @@ export default {
         this.t = ev.clientY - disY;
         this.oDiv.style.left = this.l + 'px';
         this.oDiv.style.top = this.t + 'px';
+        this.$store.commit("componentData/saveArea",1)
       }
       const up = () => {
         this.$bus.$emit('nid', this.element.id)
@@ -66,11 +69,12 @@ export default {
           left: this.l,
           top: this.t,
         }
-
         this.$store.commit('componentData/updComponent', {
           component: this.newComponent.id ? this.newComponent : this.element,
           id: this.element.id
         })
+        this.$store.commit('componentData/setCurComponent',{component: this.newComponent.id ? this.newComponent : this.element})
+
         document.removeEventListener('mousemove', move)
         document.removeEventListener('mouseup', up)
       }
@@ -78,7 +82,7 @@ export default {
       document.addEventListener('mouseup', up)
     },
     // select(e){
-    //   if (this.editMode !== 'edit') return 
+    //   if (this.editMode !== 'edit') return
     //   this.offsetX = e.offsetX
     //   this.offsetY = e.offsetY
     //   this.$store.commit('componentData/setCurComponent',{ component: this.element })
