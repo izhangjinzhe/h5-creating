@@ -17,41 +17,44 @@ export default {
       top: 0,
       left: 0,
       width: 0,
-      height: 0,
+      height: 0
     }
   }),
   mutations: {
-    updComponent(state, { component, id }) {
-      console.log(component, '----', state.curCacheData)
-      let a = deepCopy(component)
-      let b = JSON.stringify(deepCopy(state.curCacheData[0] || []))
+    clearList (state) {
+      state.list = []
+    },
+    updComponent (state, { component, id }) {
+      // console.log(component, '----', state.curCacheData)
+      const copyCpt = deepCopy(component)
+      // let b = JSON.stringify(deepCopy(state.curCacheData[0] || []))
 
-      if (!component.id) {
-        const newComponent = {
-          ...a,
-          del: true
-        }
-        state.curCacheData.unshift(newComponent)
-        state.list.splice(state.list.findIndex(item => item.id === id), 1, component)
-        state.list = state.list.filter(item => item.id)
-      } else if (id && state.list.findIndex(item => item.id === id) > -1) {
-        state.list.splice(state.list.findIndex(item => item.id === id), 1, component)
-        state.list = state.list.filter(item => item.id)
-        if (JSON.stringify(a) !== b && state.curCacheData.length > 0) {//数据改变时
-          if (state.count > 0) {
-            state.curCacheData.splice(0, state.count) // 当前步数不在最新时把之前后面的删除赋值成当前变化
-            state.curCacheData.unshift(a)
-            state.count = 0
-          } else {
-            state.curCacheData.unshift(a)
-          }
-        }
+      if (id) {
+        // const newComponent = {
+        //   ...a,
+        //   del: true
+        // }
+        // state.curCacheData.unshift(newComponent)
+        state.list.splice(state.list.findIndex(item => item.id === id), 1, copyCpt)
+        // state.list = state.list.filter(item => item.id)
+      // } else if (id && state.list.findIndex(item => item.id === id) > -1) {
+      //   state.list.splice(state.list.findIndex(item => item.id === id), 1, component)
+      //   state.list = state.list.filter(item => item.id)
+        // if (JSON.stringify(a) !== b && state.curCacheData.length > 0) {//数据改变时
+        //   if (state.count > 0) {
+        //     state.curCacheData.splice(0, state.count) // 当前步数不在最新时把之前后面的删除赋值成当前变化
+        //     state.curCacheData.unshift(a)
+        //     state.count = 0
+        //   } else {
+        //     state.curCacheData.unshift(a)
+        //   }
+        // }
       } else {
-        state.list.push(component)
-        state.curCacheData.unshift(a)
+        state.list.push(copyCpt)
+        // state.curCacheData.unshift(a)
       }
     },
-    updata(state, count) {
+    updata (state, count) {
       state.count = count
       // console.log(state.count, '=====', state.curCacheData);
       const component = state.curCacheData[state.count] || ''
@@ -72,37 +75,37 @@ export default {
       }
       console.log(state.list, 'oo')
     },
-    setCurComponent(state, { component }) {
-      if (state.editMode === "preview") {
-        return state.curComponent = {}
-      }
+    setCurComponent (state, { component }) {
+      // if (state.editMode === "preview") {
+      //   return state.curComponent = {}
+      // }
       state.curComponent = { ...component }
     },
-    setEditMode(state, mode) {
+    setEditMode (state, mode) {
       state.editMode = mode
     },
-    saveArea(state, payload) {
+    saveArea (state, payload) {
       if (!payload) {
         state.area = {
           top: Math.min(...state.list.map(item => item.styles.top)) - 1,
           left: Math.min(...state.list.map(item => item.styles.left)) - 1,
           width: Math.max(...state.list.map(item => item.styles.left + item.styles.width)) - Math.min(...state.list.map(item => item.styles.left)),
-          height: Math.max(...state.list.map(item => item.styles.top + item.styles.height)) - Math.min(...state.list.map(item => item.styles.top)),
+          height: Math.max(...state.list.map(item => item.styles.top + item.styles.height)) - Math.min(...state.list.map(item => item.styles.top))
         }
       } else {
         state.area = {
           top: 0,
           left: 0,
           width: 0,
-          height: 0,
+          height: 0
         }
       }
-    },
+    }
     // updateComponent(state, payload) {
     //   console.log(payload);
 
     //   state.list =  state.list.map(item => {
-    //     if (item.id === payload.id) { 
+    //     if (item.id === payload.id) {
     //       console.log('1');
 
     //       return {
@@ -118,10 +121,10 @@ export default {
     // }
   },
   actions: {
-    updCurAndLs({ commit }, { component }) {
+    updCurAndLs ({ commit }, { component }) {
       commit('setCurComponent', { component })
       commit('updComponent', { component, id: component.id })
     }
-  },
+  }
 
 }

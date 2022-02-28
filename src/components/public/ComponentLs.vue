@@ -28,9 +28,9 @@ import { baseLs } from '../../utils/componentLs'
 export default {
   name: 'componentLs',
   computed: {
-    ...mapGetters(['moduleLs'])
+    ...mapGetters(['moduleLs', 'curModule'])
   },
-  data() {
+  data () {
     return {
       pid: '',
       baseLs: baseLs,
@@ -51,22 +51,23 @@ export default {
       }]
     }
   },
-  created() {
+  created () {
     this.$bus.$on('pid', pid => {
       this.pid = pid
     })
   },
   methods: {
-    dragStart(e, parmas) {
+    dragStart (e, parmas) {
       e.dataTransfer.setData('dragComponent', JSON.stringify(parmas))
     },
-    click(item) {
-      var t = String(new Date().getTime())
+    click (item) {
+      console.log(item)
+      const t = String(new Date().getTime())
       const custom = {
         ...item,
         id: t
       }
-      var index = this.moduleLs.findIndex(item => item.id === this.pid)
+      const index = this.moduleLs.findIndex(item => item.id === this.curModule.id)
       if (this.moduleLs[index].type === 'i-custom') {
         const obj = {
           module: {
@@ -86,10 +87,8 @@ export default {
               return n
             })
           },
-          pid: this.pid
+          pid: this.curModule.id
         }
-        this.$bus.$emit('cid', t)
-        this.$bus.$emit('pid', this.pid)
         this.$store.commit('moduleData/updModuleLs', obj)
       }
     }

@@ -11,7 +11,7 @@
     <div class="right">
       <module />
     </div>
-    <attr-ls />
+    <attr-ls type="" />
   </div>
 </template>
 
@@ -39,8 +39,7 @@ export default {
     //   })
     // },
   },
-  created() {
-
+  created () {
   }
 }
 </script>
