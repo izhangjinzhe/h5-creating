@@ -18,7 +18,7 @@ git checkout -b gh-pages
 git rm -rf .
 
 # shellcheck disable=SC2225
-cp -a "../dist/."
+cp -a "../dist/." .
 
 git add .
 git commit -m "构建"
