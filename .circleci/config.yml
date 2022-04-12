@@ -5,3 +5,4 @@ jobs:
       - image: node:12
     steps:
       - run: 'node -v'
+      - run: 'npm -v
