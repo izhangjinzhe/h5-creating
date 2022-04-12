@@ -3,13 +3,15 @@
 mkdir "gh-pages"
 cd "gh-pages" || exit
 
+remote=$(git config remote.origin.url)
+
 git config --global user.name 'zhangjinzhe'
 git config --global user.email 'zhangjinzhe@88.com'
 
 git init
 
 # shellcheck disable=SC2046
-git remote add origin $(git config remote.origin.url)
+git remote add origin "$remote"
 git checkout gh-pages
 git rm -rf .
 
