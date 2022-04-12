@@ -5,6 +5,8 @@ cd "gh-pages" || exit
 
 remote=$(git config remote.origin.url)
 
+echo "$remote"
+
 git config --global user.name 'zhangjinzhe'
 git config --global user.email 'zhangjinzhe@88.com'
 
