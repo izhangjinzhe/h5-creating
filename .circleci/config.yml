@@ -16,4 +16,4 @@ jobs:
           command: 'npm install'
       - run:
           name: 'build'
-          command: 'npm build'
+          command: 'npm run build'
