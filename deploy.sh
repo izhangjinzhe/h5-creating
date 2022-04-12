@@ -13,7 +13,7 @@ git config --global user.email 'zhangjinzhe@88.com'
 git init
 
 # shellcheck disable=SC2046
-git remote add origin "$remote"
+git remote add --fetch origin "$remote"
 git checkout gh-pages
 git rm -rf .
 
