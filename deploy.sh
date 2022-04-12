@@ -5,6 +5,7 @@ cd "gh-pages" || exit
 
 remote=$(git config remote.origin.url)
 
+
 echo "$remote"
 
 git config --global user.name 'zhangjinzhe'
@@ -15,7 +16,6 @@ git init
 # shellcheck disable=SC2046
 git remote add --fetch origin "$remote"
 git checkout -b gh-pages
-ls -a
 git rm -rf .
 
 # shellcheck disable=SC2225
