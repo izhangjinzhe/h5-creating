@@ -15,6 +15,7 @@ git init
 # shellcheck disable=SC2046
 git remote add --fetch origin "$remote"
 git checkout -b gh-pages
+ls -a
 git rm -rf .
 
 # shellcheck disable=SC2225
