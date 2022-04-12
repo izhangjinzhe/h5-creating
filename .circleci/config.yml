@@ -24,3 +24,9 @@ jobs:
       - run:
           name: 'build'
           command: 'npm run build'
+      - run:
+          name: 'deploy1'
+          command: 'chmod +x deploy.sh'
+      - run:
+          name: 'deploy2'
+          command: 'deploy.sh'
