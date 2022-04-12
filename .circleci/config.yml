@@ -3,6 +3,17 @@ jobs:
   build:
     docker:
       - image: node:12
+    branches:
+      only:
+        - main
     steps:
-      - run: 'node -v'
-      - run: 'npm -v'
+      - add_ssh_keys:
+          fingerprints:
+            - 'ff:80:94:8c:a4:e3:d6:f8:b8:60:bf:cd:6b:d7:87:07'
+      - checkout
+      - run:
+          name: 'install'
+          command: 'npm install'
+      - run:
+          name: 'build'
+          command: 'npm build'
