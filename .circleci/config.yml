@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 jobs:
   build:
     docker:
@@ -11,9 +11,16 @@ jobs:
           fingerprints:
             - 'ff:80:94:8c:a4:e3:d6:f8:b8:60:bf:cd:6b:d7:87:07'
       - checkout
+      - restore_cache:
+          keys:
+            - cache
       - run:
           name: 'install'
           command: 'npm install'
+      - save_cache:
+          paths:
+            - node_modules
+          key: cache
       - run:
           name: 'build'
           command: 'npm run build'
